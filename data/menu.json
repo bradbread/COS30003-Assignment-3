@@ -1,0 +1,108 @@
+[
+    {
+      "id": 1,
+      "name": "Avocado Toast",
+      "description": "Fresh avocado on toasted sourdough bread",
+      "price": "$10.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 2,
+      "name": "Berry Smoothie",
+      "description": "A blend of fresh berries and yogurt",
+      "price": "$8.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 3,
+      "name": "Caesar Salad",
+      "description": "Crispy romaine lettuce with Caesar dressing",
+      "price": "$12.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 4,
+      "name": "Cheeseburger",
+      "description": "Juicy beef patty with cheese, lettuce, and tomato",
+      "price": "$15.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 5,
+      "name": "Chicken Sandwich",
+      "description": "Grilled chicken breast with mayo and lettuce",
+      "price": "$13.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 6,
+      "name": "Eggs Benedict",
+      "description": "Poached eggs with hollandaise sauce on English muffin",
+      "price": "$14.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 7,
+      "name": "French Toast",
+      "description": "Thick slices of bread soaked in egg batter and fried",
+      "price": "$11.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 8,
+      "name": "Garden Salad",
+      "description": "Mixed greens with a variety of fresh vegetables",
+      "price": "$9.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 9,
+      "name": "Grilled Cheese",
+      "description": "Melted cheese between two slices of toasted bread",
+      "price": "$7.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 10,
+      "name": "Iced Coffee",
+      "description": "Cold brew coffee with ice",
+      "price": "$5.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 11,
+      "name": "Pancakes",
+      "description": "Fluffy pancakes served with syrup",
+      "price": "$10.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 12,
+      "name": "Pizza Margherita",
+      "description": "Classic pizza with tomato sauce and mozzarella",
+      "price": "$16.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 13,
+      "name": "Spaghetti Bolognese",
+      "description": "Pasta with a rich meat sauce",
+      "price": "$18.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 14,
+      "name": "Steak Frites",
+      "description": "Grilled steak with French fries",
+      "price": "$22.00",
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 15,
+      "name": "Veggie Burger",
+      "description": "Vegetarian patty with lettuce and tomato",
+      "price": "$14.00",
+      "image": "https://via.placeholder.com/150"
+    }
+  ]
+  
