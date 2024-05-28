@@ -40,6 +40,11 @@
                         <cart-view :cart="cart" :remove-from-cart="removeFromCart" :checkout="checkout"></cart-view>
                     </div>
                 </div>
+                <div class="row mt-5" id="reserve">
+                    <div class="col-12">
+                        <reserve-form :add-reservation="addReservation"></reserve-form>
+                    </div>
+                </div>
             </v-main>
         </v-app>
     </div>
