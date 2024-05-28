@@ -159,30 +159,32 @@ app.component('reserve-form', {
     <div>
         <h2>Reserve a Table</h2>
         <form @submit.prevent="submitReservation">
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" v-model="name" required>
+                <input type="text" class="form-control form-control-sm" id="name" v-model="name" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="date" class="form-label">Date</label>
-                <input type="date" class="form-control" id="date" v-model="date" required>
+                <input type="date" class="form-control form-control-sm" id="date" v-model="date" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="time" class="form-label">Time</label>
-                <input type="time" class="form-control" id="time" v-model="time" required>
+                <input type="time" class="form-control form-control-sm" id="time" v-model="time" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="guests" class="form-label">Number of Guests</label>
-                <input type="number" class="form-control" id="guests" v-model="guests" min="1" required>
+                <input type="number" class="form-control form-control-sm" id="guests" v-model="guests" min="1" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label for="contactInfo" class="form-label">Contact Information</label>
-                <input type="text" class="form-control" id="contactInfo" v-model="contactInfo" required>
+                <input type="text" class="form-control form-control-sm" id="contactInfo" v-model="contactInfo" required>
             </div>
-            <button type="submit" class="btn btn-primary">Reserve</button>
+            <button type="submit" class="btn btn-primary btn-sm">Reserve</button>
         </form>
     </div>
     `
 });
+
+
 
 app.mount('#app');
