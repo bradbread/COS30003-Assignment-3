@@ -12,7 +12,14 @@
     <div class="container" id="app">
         <v-app>
             <v-main>
-                <app-main :menu="menu"></app-main>
+                <div class="row">
+                    <div class="col-md-8">
+                        <app-main :menu="menu" :add-to-cart="addToCart"></app-main>
+                    </div>
+                    <div class="col-md-4">
+                        <cart-view :cart="cart" :remove-from-cart="removeFromCart" :checkout="checkout"></cart-view>
+                    </div>
+                </div>
             </v-main>
         </v-app>
     </div>

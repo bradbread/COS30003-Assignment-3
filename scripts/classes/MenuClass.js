@@ -1,4 +1,4 @@
-// menu.js
+// Menu class
 export class Menu {
     constructor(id, name, description, price, image) {
         this.id = id;
