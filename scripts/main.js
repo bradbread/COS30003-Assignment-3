@@ -34,7 +34,21 @@ const app = createApp({
         removeFromCart(index) {
             this.cart.splice(index, 1);
         },
-        checkout() {
+        checkout(customerInfo) {
+            if (this.cart.length === 0) {
+                alert('Your cart is empty.');
+                return;
+            }
+
+            const order = {
+                id: Date.now(),
+                customer: customerInfo,
+                items: this.cart
+            };
+
+            // Save the order to orders.json (simulated here with a console log)
+            console.log('Order saved:', order);
+
             alert('Checkout successful!');
             this.cart = [];
         },
@@ -104,7 +118,26 @@ app.component('app-main', {
 });
 
 app.component('cart-view', {
-    props: ['cart', 'removeFromCart', 'checkout'],
+    props: ['cart', 'removeFromCart'],
+    data() {
+        return {
+            customerInfo: {
+                name: '',
+                phone: ''
+            },
+            showCheckoutForm: false
+        };
+    },
+    methods: {
+        handleCheckout() {
+            this.$emit('checkout', this.customerInfo);
+            this.customerInfo = {
+                name: '',
+                phone: ''
+            };
+            this.showCheckoutForm = false;
+        }
+    },
     template: `
     <div>
         <h2>Your Cart</h2>
@@ -122,7 +155,21 @@ app.component('cart-view', {
                     </div>
                 </li>
             </ul>
-            <button class="btn btn-success" @click="checkout">Checkout</button>
+            <button class="btn btn-primary" @click="showCheckoutForm = true">Checkout</button>
+            <div v-if="showCheckoutForm" class="mt-3">
+                <h3>Customer Information</h3>
+                <form @submit.prevent="handleCheckout">
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" v-model="customerInfo.name" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" v-model="customerInfo.phone" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit Order</button>
+                </form>
+            </div>
         </div>
         <div v-else>
             <p>Your cart is empty.</p>
@@ -184,7 +231,5 @@ app.component('reserve-form', {
     </div>
     `
 });
-
-
 
 app.mount('#app');

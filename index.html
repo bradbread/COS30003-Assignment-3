@@ -44,7 +44,7 @@
                     </div>
                     <!-- Cart Container -->
                     <div class="col-md-4">
-                        <cart-view :cart="cart" :remove-from-cart="removeFromCart" :checkout="checkout"></cart-view>
+                        <cart-view :cart="cart" :remove-from-cart="removeFromCart" @checkout="checkout"></cart-view>
                     </div>
                 </div>
             </v-main>
