@@ -10,4 +10,11 @@ export class Order {
     isValid() {
         return this.customerName && this.phoneNumber && this.items.length > 0;
     }
+
+    getTotal() {
+        return this.items.reduce((total, item) => {
+            const price = parseFloat(item.price.replace('$', ''));
+            return total + price * item.quantity;
+        }, 0);
+    }
 }

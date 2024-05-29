@@ -1,5 +1,6 @@
 import { Menu } from './classes/MenuClass.js';
 import { Reserve } from './classes/ReserveClass.js';
+import { Order } from './classes/OrderClass.js';
 
 const { createApp } = Vue;
 
@@ -40,16 +41,22 @@ const app = createApp({
                 return;
             }
 
-            const order = {
-                id: Date.now(),
-                customer: customerInfo,
-                items: this.cart
-            };
+            const order = new Order(
+                Date.now(),
+                customerInfo.name,
+                customerInfo.phone,
+                this.cart
+            );
+
+            if (!order.isValid()) {
+                alert('Invalid order details.');
+                return;
+            }
 
             // Save the order to orders.json (simulated here with a console log)
             console.log('Order saved:', order);
 
-            alert('Checkout successful!');
+            alert(`Checkout successful! Total: $${order.getTotal().toFixed(2)}`);
             this.cart = [];
         },
         addReservation(reservation) {
@@ -98,7 +105,7 @@ app.component('app-main', {
                     <img :src="item.image" class="card-img-top" :alt="item.name">
                     <div class="card-body">
                         <h5 class="card-title">{{ item.name }}</h5>
-                        <p class="card-text">{{ item.description }}</p>
+                        <p>{{ item.description }}</p>
                         <p class="card-text"><strong>Price:</strong> {{ item.price }}</p>
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <button class="btn btn-secondary" @click="decrementQuantity(item.id)">-</button>
@@ -125,15 +132,40 @@ app.component('cart-view', {
                 name: '',
                 phone: ''
             },
+            paymentInfo: {
+                cardNumber: '',
+                expiryDate: '',
+                cvv: ''
+            },
             showCheckoutForm: false
         };
     },
+    computed: {
+        cartTotal() {
+            if (this.cart.length === 0) {
+                return 0;
+            }
+            return this.cart.reduce((total, item) => {
+                return total + (parseFloat(item.price.replace('$', '')) * item.quantity);
+            }, 0).toFixed(2);
+        }
+    },
     methods: {
         handleCheckout() {
-            this.$emit('checkout', this.customerInfo);
+            // Validate customer and payment information here if needed
+            const orderDetails = {
+                customerInfo: this.customerInfo,
+                paymentInfo: this.paymentInfo
+            };
+            this.$emit('checkout', orderDetails);
             this.customerInfo = {
                 name: '',
                 phone: ''
+            };
+            this.paymentInfo = {
+                cardNumber: '',
+                expiryDate: '',
+                cvv: ''
             };
             this.showCheckoutForm = false;
         }
@@ -155,6 +187,7 @@ app.component('cart-view', {
                     </div>
                 </li>
             </ul>
+            <p v-if="cart.length"><strong>Total:</strong> $ {{ cartTotal }}</p>
             <button class="btn btn-primary" @click="showCheckoutForm = true">Checkout</button>
             <div v-if="showCheckoutForm" class="mt-3">
                 <h3>Customer Information</h3>
@@ -167,6 +200,19 @@ app.component('cart-view', {
                         <label for="phone" class="form-label">Phone</label>
                         <input type="tel" class="form-control" id="phone" v-model="customerInfo.phone" required>
                     </div>
+                    <h3>Payment Information</h3>
+                    <div class="mb-2">
+                        <label for="cardNumber" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" v-model="paymentInfo.cardNumber" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="expiryDate" class="form-label">Expiry Date</label>
+                        <input type="text" class="form-control" id="expiryDate" v-model="paymentInfo.expiryDate" placeholder="MM/YY" required>
+                    </div>
+                    <div class="mb-2">
+                        <label for="cvv" class="form-label">CVV</label>
+                        <input type="text" class="form-control" id="cvv" v-model="paymentInfo.cvv" required>
+                    </div>
                     <button type="submit" class="btn btn-success">Submit Order</button>
                 </form>
             </div>
@@ -177,6 +223,7 @@ app.component('cart-view', {
     </div>
     `
 });
+
 
 app.component('reserve-form', {
     props: ['addReservation'],
