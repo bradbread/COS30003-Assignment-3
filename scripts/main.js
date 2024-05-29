@@ -1,15 +1,19 @@
 import { Menu } from './classes/MenuClass.js';
 import { Reserve } from './classes/ReserveClass.js';
 import { Order } from './classes/OrderClass.js';
+import { Payment } from './classes/PaymentClass.js';
+import { Receipt } from './classes/ReceiptClass.js';
 
 const { createApp } = Vue;
+
 
 const app = createApp({
     data() {
         return {
             menu: [],
             cart: [],
-            reservations: []
+            reservations: [],
+            receiptHtml: '' // Add receiptHtml to store HTML string
         };
     },
     created() {
@@ -35,11 +39,13 @@ const app = createApp({
         removeFromCart(index) {
             this.cart.splice(index, 1);
         },
-        checkout(customerInfo) {
+        checkout(orderDetails) {
             if (this.cart.length === 0) {
                 alert('Your cart is empty.');
                 return;
             }
+
+            const { customerInfo, paymentInfo } = orderDetails;
 
             const order = new Order(
                 Date.now(),
@@ -53,10 +59,21 @@ const app = createApp({
                 return;
             }
 
-            // Save the order to orders.json (simulated here with a console log)
-            console.log('Order saved:', order);
+            const payment = new Payment(order.id, order.getTotal());
+            const paymentStatus = payment.getStatus();
 
-            alert(`Checkout successful! Total: $${order.getTotal().toFixed(2)}`);
+            const receipt = new Receipt(
+                order.id,
+                order.customerName,
+                order.phoneNumber,
+                order.items,
+                order.getTotal(),
+                paymentStatus
+            );
+
+            this.receiptHtml = receipt.displayReceipt(); // Store HTML string in receiptHtml
+
+            alert(`Checkout successful! Total: $${order.getTotal().toFixed(2)}\nPayment Status: ${paymentStatus}`);
             this.cart = [];
         },
         addReservation(reservation) {
@@ -125,7 +142,7 @@ app.component('app-main', {
 });
 
 app.component('cart-view', {
-    props: ['cart', 'removeFromCart'],
+    props: ['cart', 'removeFromCart', 'checkout'],
     data() {
         return {
             customerInfo: {
@@ -152,7 +169,6 @@ app.component('cart-view', {
     },
     methods: {
         handleCheckout() {
-            // Validate customer and payment information here if needed
             const orderDetails = {
                 customerInfo: this.customerInfo,
                 paymentInfo: this.paymentInfo
@@ -219,6 +235,38 @@ app.component('cart-view', {
         </div>
         <div v-else>
             <p>Your cart is empty.</p>
+        </div>
+    </div>
+    `
+});
+
+app.component('receipt-view', {
+    props: ['receiptHtml'],
+    methods: {
+        printReceipt() {
+            const receiptWindow = window.open('', 'PRINT', 'height=400,width=600');
+            receiptWindow.document.write('<html><head><title>Receipt</title>');
+            receiptWindow.document.write('</head><body>');
+            receiptWindow.document.write(this.receiptHtml);
+            receiptWindow.document.write('</body></html>');
+            receiptWindow.document.close();
+            receiptWindow.print();
+        },
+        sendReceiptToCustomer() {
+            console.log('Sending receipt...');
+            setTimeout(() => {
+                console.log('Receipt sent successfully!');
+                alert('Receipt sent to your phone number successfully!');
+            }, 1000);
+        }
+    },
+    template: `
+    <div v-if="receiptHtml" class="mt-5">
+        <h2>Receipt</h2>
+        <div v-html="receiptHtml"></div>
+        <div class="mt-3 row">
+            <button class="btn btn-outline-secondary col-5 p-2 mx-1" @click="printReceipt">Print Receipt</button>
+            <button class="btn btn-secondary col-5 p-2 mx-1" @click="sendReceiptToCustomer">Send Receipt</button>
         </div>
     </div>
     `
