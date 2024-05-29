@@ -14,7 +14,7 @@ export class Receipt {
             <tr>
                 <td>${item.name}</td>
                 <td>${item.quantity}</td>
-                <td>$${item.price}</td>
+                <td>${item.price}</td>
             </tr>
         `).join('');
 
@@ -38,7 +38,7 @@ export class Receipt {
                             ${itemsHtml}
                         </tbody>
                     </table>
-                    <p><strong>Total Amount:</strong> $${this.totalAmount.toFixed(2)}</p>
+                    <p><strong>Total Amount:</strong>$ ${this.totalAmount.toFixed(2)}</p>
                     <p><strong>Payment Status:</strong> ${this.paymentStatus}</p>
                     <p class="text-center">Thank you for your order!</p>
                 </div>
