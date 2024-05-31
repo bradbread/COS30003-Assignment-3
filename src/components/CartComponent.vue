@@ -1,7 +1,7 @@
 <template>
     <div>
       <h2>Your Cart</h2>
-      <div v-if="cart.length">
+      <div v-if="cart">
         <ul class="list-group mb-3">
           <li class="list-group-item" v-for="(item, index) in cart" :key="index">
             <div class="d-flex justify-content-between">
@@ -15,7 +15,7 @@
             </div>
           </li>
         </ul>
-        <p v-if="cart.length"><strong>Total:</strong> $ {{ cartTotal }}</p>
+        <p v-if="cart"><strong>Total:</strong> $ {{ cartTotal }}</p>
         <button class="btn btn-primary" @click="showCheckoutForm = true">Checkout</button>
         <div v-if="showCheckoutForm" class="mt-3">
           <h3>Customer Information</h3>
@@ -71,7 +71,7 @@
     },
     computed: {
       cartTotal() {
-        if (this.cart.length === 0) {
+        if (!this.cart) {
           return 0;
         }
         return this.cart.reduce((total, item) => {

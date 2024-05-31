@@ -5,9 +5,9 @@
           <div class="row">
             <div class="col-md-8">
               <MainComponent :menu="menu" :add-to-cart="addToCart"></MainComponent>
-              <div class="mt-4 mb-5">
+              <!-- <div class="mt-4 mb-5">
                 <ReserveForm :add-reservation="addReservation"></ReserveForm>
-              </div>
+              </div> -->
             </div>
             <div class="col-md-4">
               <CartComponent :cart="cart" :remove-from-cart="removeFromCart" @checkout="checkout"></CartComponent>
@@ -22,7 +22,7 @@
   <script>
   import MainComponent from './MainComponent.vue';
   import CartComponent from './CartComponent.vue';
-  import ReserveForm from './ReserveForm.vue';
+  // import ReserveForm from './ReserveForm.vue';
   import ReceiptView from './ReceiptComponent.vue';
   import { Menu } from '../models/MenuClass.js';
   import { Order } from '../models/OrderClass.js';
@@ -34,7 +34,6 @@
     components: {
       MainComponent,
       CartComponent,
-      ReserveForm,
       ReceiptView
     },
     data() {
