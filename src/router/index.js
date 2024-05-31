@@ -1,14 +1,13 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import MainComponent from '../components/MainComponent.vue'
-import CartComponent from '../components/CartComponent.vue'
-import ReserveComponent from '../components/ReserveComponent.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import MenuComponent from '../components/MenuComponent.vue';
+import CartComponent from '../components/CartComponent.vue';
+import ReserveForm from '../components/ReserveForm.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'main',
-    component: MainComponent,
-    props: {MainComponent: true}
+    name: 'home',
+    component: MenuComponent
   },
   {
     path: '/order',
@@ -18,13 +17,13 @@ const routes = [
   {
     path: '/reserve',
     name: 'reserve',
-    component: ReserveComponent
+    component: ReserveForm
   },
-]
+];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;
